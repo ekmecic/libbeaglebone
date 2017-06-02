@@ -1,5 +1,5 @@
 [package]
-name = "bb-rust"
+name = "bb_rust"
 version = "0.1.0"
 authors = ["ee"]
 
