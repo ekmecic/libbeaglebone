@@ -1,0 +1,6 @@
+[package]
+name = "bb-rust"
+version = "0.1.0"
+authors = ["ee"]
+
+[dependencies]
