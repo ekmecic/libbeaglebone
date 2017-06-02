@@ -1,0 +1,60 @@
+# Based on the "trust" template v0.1.1
+# https://github.com/japaric/trust/tree/v0.1.1
+
+dist: trusty
+language: rust
+services: docker
+sudo: required
+
+env:
+  global:
+    - CRATE_NAME=bb-rust
+
+matrix:
+  include:
+    # Linux
+    - env: TARGET=i686-unknown-linux-gnu
+    - env: TARGET=x86_64-unknown-linux-gnu
+
+    # Other architectures
+    - env: TARGET=armv7-unknown-linux-gnueabihf
+
+before_install: set -e
+
+install:
+  - sh ci/install.sh
+  - source ~/.cargo/env || true
+
+script:
+  - bash ci/script.sh
+
+after_script: set +e
+
+before_deploy:
+  - sh ci/before_deploy.sh
+
+deploy:
+  api_key:
+    secure: CAanltizDNQfrTS6UskiBuJ5Ni/g9Oxvqw0Q555dJu9kuTLYbAeyM4CSOnH87LDaHnIrh9sY3Imz5SkNvldeKoUh/O/+oA9LxkWPiqRnIbNxZ1D/nPSG+1DhsFdrMsn8LXm6mV3JGdrFyV7N4xmuvn0RePx8zDI0xCMhabzHozU9JUVNWIqzGzZgtsuCoNLKGwtrAKFIX99FBomEMcg1G8bHd9fB2LYdUxvQEQSlSEmYXgl8fA2lhYl6tttkZKdIRj/CDkqGDvqoTVRZF6ddusBxEH9Xanuk6AeDQbRIB7AovFrihcCsCgSpGdXFhDdtGRXsGx8Bnf81o8O177OFw2xXaqXylZMzfxvQDQglSkpzwCMcVpP/wxBC+pU35grvu1aguH1MFhIKqMpPapCt0UyLqVJ2k69JUi7cdZ0AVxR7ENJhTrEg50JJ+IQtfyu43yR78qCeoqXq/bQBM18F1GmA7us0MTmXiC7F53eejRmfPCOoofT4u+UL8N83KTsySaBf11CLf22ReWn42Fzy52X3X2IRNKnN7mJef+gM4y5Vcm9rljEf4KM2LxuKutnfDdfNw2b2x4B1yQ6fFakpHlAOb0yN1NjL9cVFFmNRcNU3/SWcHMjyh+FJDkqTkBV2AztGK6RfOphBro4zI0WE3/9rXm4B2nCtXitC+MoCx2w=
+  file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  on:
+    condition: $DEPLOY = never # Don't try to build binaries
+    tags: true
+  provider: releases
+  skip_cleanup: true
+
+cache: cargo
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
+
+branches:
+  only:
+    # release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  email:
+    on_success: never
