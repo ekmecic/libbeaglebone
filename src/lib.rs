@@ -33,3 +33,4 @@
         unused_results)]
 
 pub mod gpio;
+pub mod util;
