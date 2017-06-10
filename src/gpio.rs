@@ -1,6 +1,28 @@
 //! The GPIO module
+
+use errors::*;
 use util::*;
+use std::fs::File;
 use std::path::PathBuf;
+use std::io::Write;
+
+/// The direction a pin works in
+#[derive(Debug, PartialEq, Eq)]
+pub enum PinDirection {
+    /// GPIO out, self explanatory
+    In,
+    /// GPIO out, self explanatory
+    Out,
+}
+
+/// The logic level of an output GPIO pin
+#[derive(Debug, PartialEq, Eq)]
+pub enum PinState {
+    /// GPIO out, self explanatory
+    High,
+    /// GPIO out, self explanatory
+    Low,
+}
 
 /// Represents a pin configured as a GPIO
 #[derive(Debug)]
@@ -18,29 +40,59 @@ impl GPIO {
             pin_path: PathBuf::from(m_pin_path),
         }
     }
-    /// Export a GPIO pin
-    pub fn export(&self) {
-        // If the path exists, don't do anything
-        // If it doesn't exist, create it and export
-        if !self.pin_path.exists() {
-            write_to_file(&self.pin_num.to_string(), "/sys/class/gpio/export")
-        }
+
+    /// Sets the direction of the pin
+    // Don't rustfmt this section because rustfmt butchers the match statement
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    pub fn set_direction(&self, direction: PinDirection) -> Result<()> {
+        write_file(match direction {PinDirection::In => "in",
+                                    PinDirection::Out => "out",},
+                   "direction",
+                   &self.pin_num)
+            .chain_err(|| format!("Failed to set GPIO pin #{} direction", &self.pin_num))?;
+        Ok(())
     }
-    /// Unexport a GPIO pin
-    pub fn unexport(&self) {
+
+    /// Export or unexport a GPIO
+    pub fn set_export(&self, state: bool) -> Result<()> {
         // If the path exists, try to unexport it
         // If it doesn't exist, don't do anything
-        if !self.pin_path.exists() {
-            write_to_file(&self.pin_num.to_string(), "/sys/class/gpio/export")
+        if state && !self.pin_path.exists() {
+            File::create("/sys/class/gpio/export")
+                .chain_err(|| "Failed to open GPIO export file")?
+            .write_all(self.pin_num.to_string().as_bytes())
+                .chain_err(|| format!("Failed to export GPIO pin #{}", &self.pin_num))?;
+
+        } else if !state && self.pin_path.exists() {
+            File::create("/sys/class/gpio/unexport")
+                .chain_err(|| "Failed to open GPIO unexport file")?
+            .write_all(self.pin_num.to_string().as_bytes())
+                .chain_err(|| format!("Failed to unexport GPIO pin #{}", &self.pin_num))?;
         }
+        Ok(())
     }
+
     /// Set the state hi or lo
-    pub fn set_state(&self, state: bool) {
-        // TODO: replace with something less sketchy
-        if state {
-            write_to_file("1", &format!("/sys/class/gpio/gpio{}/value", self.pin_num))
+    // Don't rustfmt this section because rustfmt butchers the match statement
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    pub fn write(&mut self, state: PinState) -> Result<()> {
+        write_file(match state { PinState::High => "1",
+                                 PinState::Low => "0",},
+                   "value",
+                   &self.pin_num)
+            .chain_err(|| {format!("Failed to set GPIO pin #{} state to {}",
+                                   &self.pin_num,
+                                   state as u8)
+            })?;
+        Ok(())
+    }
+
+    /// Get the state of the pin
+    pub fn read(&self) -> Result<(PinState)> {
+        if read_file("value", &self.pin_num).unwrap() {
+            Ok(PinState::High)
         } else {
-            write_to_file("0", &format!("/sys/class/gpio/gpio{}/value", self.pin_num))
+            Ok(PinState::Low)
         }
     }
 }

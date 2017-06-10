@@ -32,5 +32,12 @@
         unused_qualifications,
         unused_results)]
 
+// Don't recurse too deeply (especially with error-chain enabled)
+#![recursion_limit = "1024"]
+
+#[macro_use]
+extern crate error_chain;
+
 pub mod gpio;
+pub mod errors;
 pub mod util;
