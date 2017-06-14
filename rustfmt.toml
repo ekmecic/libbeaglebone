@@ -1,0 +1,6 @@
+chain_indent             = "Visual"
+chain_split_single_file  = false
+reorder_imports_in_group = true
+reorder_imports          = true
+tab_spaces               = 2
+wrap_comments            = true
