@@ -1,7 +1,18 @@
 [package]
 name = "libbeaglebone"
-version = "0.2.0"
+description = "A friendly Rust interface to the BeagleBone family of devices."
+categories = ["embedded", "hardware-support"]
 authors = ["ee"]
+
+version = "0.2.0"
+license = "GPLv3"
+
+homepage = "https://github.com/ekmecic/libbeaglebone"
+repository = "https://github.com/ekmecic/libbeaglebone"
+documentation = "https://docs.rs/libbeaglebone"
 
 [dependencies]
 error-chain = "0.10.0"
+
+[badges]
+travis-ci = {repository = "ekmecic/libbeaglebone"}
