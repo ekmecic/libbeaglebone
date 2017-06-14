@@ -1,6 +1,6 @@
 # `libbeaglebone` &ensp;
 [![Build Status](https://travis-ci.org/ekmecic/libbeaglebone.svg?branch=master)](https://travis-ci.org/ekmecic/libbeaglebone)
-[![](https://img.shields.io/crates/v/libbeaglebone.svg)](https://crates.io/libbeaglebone)
+[![](https://img.shields.io/crates/v/libbeaglebone.svg)](https://crates.io/crates/libbeaglebone)
 [![](https://docs.rs/libbeaglebone/badge.svg)](https://docs.rs/libbeaglebone)
 
 `libbeaglebone` is a WIP Rust library that aims to provide a friendly interface for common embedded functionality for the BeagleBone family of devices.
