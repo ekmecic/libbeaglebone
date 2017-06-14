@@ -30,7 +30,7 @@ Once compilation is complete, you can find the binary in the `target/debug/examp
 
 ## Acknowlegements
 I'd like to thank (in no particular order):
-* Travis Woerner for his mentoring
+* Trevor Woerner for his mentoring
 * The BeagleBoard organization for their help
 * Google for their sponsorship of the project
 
