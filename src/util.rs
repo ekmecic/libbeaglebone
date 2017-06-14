@@ -1,10 +1,11 @@
-//! general utils
+//! General utility functions used internally throughout the crate, such as
+//! writing to sysfs files.
 
 use errors::*;
 use std::fs::File;
 use std::io::{Write, Read};
 
-/// Write some data to a file
+/// Writes data to a sysfs device file.
 pub fn write_file(data: &str, attr: &str, pin_num: &u8) -> Result<()> {
   let path = format!("/sys/class/gpio/gpio{}/{}", pin_num, attr);
 
@@ -16,7 +17,7 @@ pub fn write_file(data: &str, attr: &str, pin_num: &u8) -> Result<()> {
   Ok(())
 }
 
-/// read from a device file
+/// Reads from a sysfs device file.
 pub fn read_file(attr: &str, pin_num: &u8) -> Result<(bool)> {
   let path = format!("/sys/class/gpio/gpio{}/{}", pin_num, attr);
   let mut value_str = String::new();

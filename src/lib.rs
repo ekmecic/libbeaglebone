@@ -1,4 +1,4 @@
-//! A friendly Rust interface to the BeagleBone family of devices
+//! A friendly Rust interface to the BeagleBone family of devices.
 
 #![deny(bad_style,
         unsafe_code,
@@ -32,7 +32,7 @@
         unused_qualifications,
         unused_results)]
 
-// Don't recurse too deeply (especially with error-chain enabled)
+// Don't recurse too deeply (with error-chain enabled)
 #![recursion_limit = "1024"]
 
 #[macro_use]
