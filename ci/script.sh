@@ -4,6 +4,9 @@ set -ex
 
 # TODO This is the "test phase", tweak it as you see fit
 main() {
+    # Check if the code is formatted properly
+    cargo fmt -- --write-mode=diff
+
     cross build --target $TARGET
     cross build --target $TARGET --release
 
