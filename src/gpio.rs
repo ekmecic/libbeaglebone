@@ -43,7 +43,7 @@ impl GPIO {
   /// use bb_rust::gpio::GPIO;
   ///
   /// // Create a new GPIO object using pin #45
-  /// let pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(45);
   /// ```
   pub fn new(m_pin_num: u8) -> GPIO {
     let m_pin_path = format!("/sys/class/gpio/gpio{}", m_pin_num);
@@ -57,7 +57,7 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```
+  /// ```rust,no_run
   /// use bb_rust::gpio::{GPIO, PinDirection};
   ///
   /// let pin = GPIO::new(45);
@@ -87,16 +87,16 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```
+  /// ```rust,no_run
   /// use bb_rust::gpio::{GPIO};
   ///
-  /// let pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin
   /// pin.set_export(true).unwrap();
   ///
   /// // Try to unexport the pin
-  /// pin.set_direction(false).unwrap();
+  /// pin.set_export(false).unwrap();
   /// ```
   pub fn set_export(&self, state: bool) -> Result<()> {
     // Note: if the pin path exists, the pin is already exported.
@@ -127,10 +127,10 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```
+  /// ```rust,no_run
   /// use bb_rust::gpio::{GPIO, PinState, PinDirection};
   ///
-  /// let pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin and make it an output
   /// pin.set_export(true).unwrap();
@@ -162,17 +162,17 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```
-  /// use bb_rust::gpio::{GPIO, PinState, PinDirection};
+  /// ```rust,no_run
+  /// use bb_rust::gpio::{GPIO, PinDirection};
   ///
-  /// let pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin and make it an input
   /// pin.set_export(true).unwrap();
   /// pin.set_direction(PinDirection::In).unwrap();
   ///
   /// // Read the pin's state
-  /// pin.read(PinState::High).unwrap();
+  /// pin.read().unwrap();
   /// ```
   pub fn read(&self) -> Result<(PinState)> {
     // Read from the file and match the resulting bool to a PinState
