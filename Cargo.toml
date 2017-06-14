@@ -5,7 +5,7 @@ categories = ["embedded", "hardware-support"]
 authors = ["ee"]
 
 version = "0.2.0"
-license = "GPLv3"
+license = "GPL-3.0"
 
 homepage = "https://github.com/ekmecic/libbeaglebone"
 repository = "https://github.com/ekmecic/libbeaglebone"
