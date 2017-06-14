@@ -10,10 +10,6 @@ main() {
         sort=gsort  # for `sort --sort-version`, from brew's coreutils.
     fi
 
-    # Install rustfmt if it's missing
-    export PATH="$PATH:$HOME/.cargo/bin"
-    which rustfmt || cargo install rustfmt
-
     # This fetches latest stable release
     local tag=$(git ls-remote --tags --refs --exit-code https://github.com/japaric/cross \
                        | cut -d/ -f3 \
