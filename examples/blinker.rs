@@ -7,7 +7,7 @@ use bb_rust::gpio::*;
 fn main() {
     // Create out LED GPIO object, export it (if it isn't already),
     // and set it as an input
-    let mut led = bb_rust::gpio::GPIO::new(69);
+    let mut led = GPIO::new(69);
     led.set_export(true).unwrap();
     led.set_direction(PinDirection::Out).unwrap();
 
