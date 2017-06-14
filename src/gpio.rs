@@ -40,7 +40,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```
-  /// use bb_rust::gpio::GPIO;
+  /// use libbeaglebone::gpio::GPIO;
   ///
   /// // Create a new GPIO object using pin #45
   /// let mut pin = GPIO::new(45);
@@ -58,7 +58,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```rust,no_run
-  /// use bb_rust::gpio::{GPIO, PinDirection};
+  /// use libbeaglebone::gpio::{GPIO, PinDirection};
   ///
   /// let pin = GPIO::new(45);
   ///
@@ -88,7 +88,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```rust,no_run
-  /// use bb_rust::gpio::{GPIO};
+  /// use libbeaglebone::gpio::{GPIO};
   ///
   /// let mut pin = GPIO::new(45);
   ///
@@ -128,7 +128,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```rust,no_run
-  /// use bb_rust::gpio::{GPIO, PinState, PinDirection};
+  /// use libbeaglebone::gpio::{GPIO, PinState, PinDirection};
   ///
   /// let mut pin = GPIO::new(45);
   ///
@@ -163,7 +163,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```rust,no_run
-  /// use bb_rust::gpio::{GPIO, PinDirection};
+  /// use libbeaglebone::gpio::{GPIO, PinDirection};
   ///
   /// let mut pin = GPIO::new(45);
   ///

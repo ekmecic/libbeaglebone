@@ -8,7 +8,7 @@ sudo: required
 
 env:
   global:
-    - CRATE_NAME=bb-rust
+    - CRATE_NAME=libbeaglebone
 
 matrix:
   include:

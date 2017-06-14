@@ -1,6 +1,6 @@
-extern crate bb_rust;
+extern crate libbeaglebone;
 
-use bb_rust::gpio::*;
+use libbeaglebone::gpio::*;
 use std::thread;
 use std::time::Duration;
 

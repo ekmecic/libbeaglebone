@@ -1,5 +1,5 @@
 [package]
-name = "bb_rust"
+name = "libbeaglebone"
 version = "0.2.0"
 authors = ["ee"]
 

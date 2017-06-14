@@ -1,6 +1,6 @@
-extern crate bb_rust;
+extern crate libbeaglebone;
 
-use bb_rust::gpio::*;
+use libbeaglebone::gpio::*;
 
 fn main() {
   // Create our button GPIO object, export it (if it isn't already),
