@@ -13,6 +13,7 @@ libbeaglebone will be feature-complete when the following interfaces are all imp
 - [ ] UART
 - [ ] SPI
 - [ ] I2C
+
 Note: `libbeaglebone` is still in development meaning many of the features haven't yet been implemented.
 
 ## Usage
@@ -27,19 +28,20 @@ cargo build --example blinker
 substituting `blinker` for the filename of the example you'd like to compile.
 Once compilation is complete, you can find the binary in the `target/debug/examples` directory.
 
-## License
-`libbeaglebone` is licensed under version 3 of the GPL license.
-
 ## Acknowlegements
 I'd like to thank (in no particular order):
 * Travis Woerner for his mentoring
 * The BeagleBoard organization for their help
 * Google for their sponsorship of the project
 
+## License
+`libbeaglebone` is licensed under version 3 of the GPL license.
+
 ## See also
 * [rust-sysfs-gpio](https://github.com/rust-embedded/rust-sysfs-gpio)
 * [rust-sysfs-pwm](https://github.com/rust-embedded/rust-sysfs-pwm)
 * [rust-spidev](https://github.com/rust-embedded/rust-spidev)
 * [rust-i2cdev](https://github.com/rust-embedded/rust-i2cdev)
+* [gpio-rs](https://github.com/mbr/gpio-rs)
 * [Cylus](https://github.com/Vikaton/cylus)
 * [Cuprum Pi](https://github.com/inre/cupi)
