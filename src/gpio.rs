@@ -9,18 +9,18 @@ use util::*;
 /// The direction of the pin, which can be either an input or output.
 #[derive(Debug, PartialEq, Eq)]
 pub enum PinDirection {
-  /// GPIO out, self explanatory
+  /// GPIO in
   In,
-  /// GPIO out, self explanatory
+  /// GPIO out
   Out,
 }
 
 /// The logic level of an output GPIO pin, either high or low.
 #[derive(Debug, PartialEq, Eq)]
 pub enum PinState {
-  /// GPIO out, self explanatory
+  /// GPIO logic high
   High,
-  /// GPIO out, self explanatory
+  /// GPIO logic low
   Low,
 }
 
@@ -57,7 +57,7 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```rust,no_run
+  /// ```no_run
   /// use libbeaglebone::gpio::{GPIO, PinDirection};
   ///
   /// let pin = GPIO::new(45);
@@ -83,11 +83,12 @@ impl GPIO {
   /// Exports or unexports a GPIO pin.
   ///
   /// True corresponds to export, false corresponds to unexport.
-  /// `set_export()` won't try to export pins that are already exported.
+  /// `set_export()` won't try to export pins that are already exported, or
+  /// unexport pins that aren't exported.
   ///
   /// # Examples
   ///
-  /// ```rust,no_run
+  /// ```no_run
   /// use libbeaglebone::gpio::{GPIO};
   ///
   /// let mut pin = GPIO::new(45);
@@ -127,7 +128,7 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```rust,no_run
+  /// ```no_run
   /// use libbeaglebone::gpio::{GPIO, PinState, PinDirection};
   ///
   /// let mut pin = GPIO::new(45);
@@ -162,8 +163,8 @@ impl GPIO {
   ///
   /// # Examples
   ///
-  /// ```rust,no_run
-  /// use libbeaglebone::gpio::{GPIO, PinDirection};
+  /// ```no_run
+  /// use libbeaglebone::gpio::{GPIO, PinDirection, PinState};
   ///
   /// let mut pin = GPIO::new(45);
   ///
@@ -172,7 +173,9 @@ impl GPIO {
   /// pin.set_direction(PinDirection::In).unwrap();
   ///
   /// // Read the pin's state
-  /// pin.read().unwrap();
+  /// if pin.read().unwrap() == PinState::High {
+  ///   println!("Pin is high!");
+  /// }
   /// ```
   pub fn read(&self) -> Result<(PinState)> {
     // Read from the file and match the resulting bool to a PinState
