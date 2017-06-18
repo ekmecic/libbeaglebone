@@ -152,9 +152,9 @@ impl GPIO {
                },
                &path)
       .chain_err(|| {
-                   format!("Failed to set GPIO pin #{} state to {}",
+                   format!("Failed to set GPIO pin #{} state to {:?}",
                            &self.pin_num,
-                           state as u8)
+                           state)
                  })?;
     Ok(())
   }
