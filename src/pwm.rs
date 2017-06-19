@@ -1,5 +1,6 @@
 //! The PWM module.
 
+use enums::DeviceState;
 use errors::*;
 use std::fs::File;
 use std::io::Write;
@@ -56,19 +57,20 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::pwm::PWM;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0,0);
   ///
   /// // Export the PWM.
-  /// pwm.set_export(true).unwrap();
+  /// pwm.set_export(DeviceState::Exported).unwrap();
   /// ```
-  pub fn set_export(&self, state: bool) -> Result<()> {
+  pub fn set_export(&self, state: DeviceState) -> Result<()> {
     let path = PathBuf::from(format!("/sys/class/pwm/pwmchip{}/pwm{}",
                                      &self.pwm_chip_num,
                                      &self.pwm_num));
-    if state && !path.exists() {
+    if state == DeviceState::Exported && !path.exists() {
       File::create(format!("/sys/class/pwm/pwmchip{}/export", &self.pwm_chip_num))
         .chain_err(|| "Failed to open PWM export file")?
         .write_all(self.pwm_num.to_string().as_bytes())
@@ -80,7 +82,7 @@ impl PWM {
     }
     // Try to unexport if the path exists, otherwise the device is unexported and there's nothing
     // to do
-    else if !state && path.exists() {
+    else if state == DeviceState::Unexported && path.exists() {
       File::create(format!("/sys/class/pwm/pwmchip{}/unexport", &self.pwm_chip_num))
         .chain_err(|| "Failed to open PWM unexport file")?
         .write_all(self.pwm_num.to_string().as_bytes())
@@ -98,13 +100,14 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::pwm::PWM;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0,0);
   ///
   /// // Export the PWM.
-  /// pwm.set_export(true).unwrap();
+  /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
   /// // Make the period 500,000ns.
   /// pwm.set_period(500_000).unwrap();
@@ -129,13 +132,14 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0,0);
   ///
   /// // Export the PWM.
-  /// pwm.set_export(true).unwrap();
+  /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
   /// // Make the period 500,000ns.
   /// pwm.set_period(500_000).unwrap();
@@ -167,13 +171,14 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0,0);
   ///
   /// // Export the PWM.
-  /// pwm.set_export(true).unwrap();
+  /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
   /// // Make the period 500,000ns.
   /// pwm.set_period(500_000).unwrap();
@@ -206,13 +211,14 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0,0);
   ///
   /// // Export the PWM.
-  /// pwm.set_export(true).unwrap();
+  /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
   /// // Make the period 500,000ns.
   /// pwm.set_period(500_000).unwrap();

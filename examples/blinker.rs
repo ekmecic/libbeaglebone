@@ -1,6 +1,7 @@
 extern crate libbeaglebone;
 
-use libbeaglebone::gpio::*;
+use libbeaglebone::enums::DeviceState;
+use libbeaglebone::gpio::{GPIO, PinDirection, PinState};
 use std::thread;
 use std::time::Duration;
 
@@ -9,7 +10,7 @@ fn main() {
   // set it as an output
   // Adjust the pin number to whatever pin your LED is connected to
   let mut led = GPIO::new(69);
-  led.set_export(true).unwrap();
+  led.set_export(DeviceState::Exported).unwrap();
   led.set_direction(PinDirection::Out).unwrap();
 
   for _ in 1..11 {
@@ -19,4 +20,7 @@ fn main() {
     led.write(PinState::Low).unwrap();
     thread::sleep(Duration::from_millis(250));
   }
+
+  // Unexport the LED once we're done with it.
+  led.set_export(DeviceState::Unexported).unwrap();
 }

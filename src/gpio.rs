@@ -1,5 +1,6 @@
 //! The GPIO module.
 
+use enums::DeviceState;
 use errors::*;
 use std::fs::File;
 use std::io::Write;
@@ -89,24 +90,25 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::gpio::{GPIO};
   ///
   /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin
-  /// pin.set_export(true).unwrap();
+  /// pin.set_export(DeviceState::Exported).unwrap();
   ///
   /// // Try to unexport the pin
-  /// pin.set_export(false).unwrap();
+  /// pin.set_export(DeviceState::Unexported).unwrap();
   /// ```
-  pub fn set_export(&self, state: bool) -> Result<()> {
+  pub fn set_export(&self, state: DeviceState) -> Result<()> {
     // Note: if the pin path exists, the pin is already exported.
     // If the pin path doesn't exist, the pin isn't exported.
     // Exporting/unexporting is done by writing the pin number to the
     // export/unexport file.
 
     // The pin path doesn't exist and we want to export, try to write to the file
-    if state && !self.pin_path.exists() {
+    if state == DeviceState::Exported && !self.pin_path.exists() {
       File::create("/sys/class/gpio/export")
         .chain_err(|| "Failed to open GPIO export file")?
         .write_all(self.pin_num.to_string().as_bytes())
@@ -114,7 +116,7 @@ impl GPIO {
 
     }
     // Try to unexport if the path exists, otherwise the pin is unexported and there's nothing to do
-    else if !state && self.pin_path.exists() {
+    else if state == DeviceState::Unexported && self.pin_path.exists() {
       File::create("/sys/class/gpio/unexport")
         .chain_err(|| "Failed to open GPIO unexport file")?
         .write_all(self.pin_num.to_string().as_bytes())
@@ -130,11 +132,12 @@ impl GPIO {
   ///
   /// ```no_run
   /// use libbeaglebone::gpio::{GPIO, PinState, PinDirection};
+  /// use libbeaglebone::enums::DeviceState;
   ///
   /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin and make it an output
-  /// pin.set_export(true).unwrap();
+  /// pin.set_export(DeviceState::Exported).unwrap();
   /// pin.set_direction(PinDirection::Out).unwrap();
   ///
   /// // Set the pin to logic high
@@ -164,12 +167,13 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
+  /// use libbeaglebone::enums::DeviceState;
   /// use libbeaglebone::gpio::{GPIO, PinDirection, PinState};
   ///
   /// let mut pin = GPIO::new(45);
   ///
   /// // Try to export the pin and make it an input
-  /// pin.set_export(true).unwrap();
+  /// pin.set_export(DeviceState::Exported).unwrap();
   /// pin.set_direction(PinDirection::In).unwrap();
   ///
   /// // Read the pin's state

@@ -1,6 +1,7 @@
 extern crate libbeaglebone;
 
-use libbeaglebone::pwm::*;
+use libbeaglebone::enums::DeviceState;
+use libbeaglebone::pwm::{PWM, PWMState};
 use std::thread;
 use std::time::Duration;
 
@@ -9,7 +10,7 @@ fn main() {
   // Note, `config-pin P9.21 pwm` has to be called prior to execution.
   // Then, export, set the period, and enable the PWM.
   let mut led = PWM::new(0, 0);
-  led.set_export(true).unwrap();
+  led.set_export(DeviceState::Exported).unwrap();
   led.set_period(500_000).unwrap();
   led.set_state(PWMState::Enabled).unwrap();
 
@@ -24,5 +25,5 @@ fn main() {
 
   // Turn off the LED and unexport the PWM device.
   led.write(0.0).unwrap();
-  led.set_export(false).unwrap();
+  led.set_export(DeviceState::Unexported).unwrap();
 }

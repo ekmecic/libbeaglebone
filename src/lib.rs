@@ -39,6 +39,7 @@
 extern crate error_chain;
 
 pub mod gpio;
+pub mod enums;
 pub mod errors;
 pub mod pwm;
 pub mod util;
