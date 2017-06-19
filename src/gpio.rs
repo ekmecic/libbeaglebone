@@ -189,6 +189,5 @@ impl GPIO {
       "0" => Ok(PinState::Low),
       _ => bail!(format!("Invalid value read from file {}", &path)),
     }
-
   }
 }

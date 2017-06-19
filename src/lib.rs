@@ -43,3 +43,4 @@ pub mod enums;
 pub mod errors;
 pub mod pwm;
 pub mod util;
+pub mod adc;
