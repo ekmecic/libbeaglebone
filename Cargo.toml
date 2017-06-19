@@ -4,7 +4,7 @@ description = "A friendly Rust interface to the BeagleBone family of devices."
 categories = ["embedded", "hardware-support"]
 authors = ["ee"]
 
-version = "0.2.2"
+version = "0.3.0"
 license = "GPL-3.0"
 
 homepage = "https://github.com/ekmecic/libbeaglebone"
