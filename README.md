@@ -8,7 +8,7 @@
 ## Features
 libbeaglebone will be feature-complete when the following interfaces are all implemented:
 - [x] GPIO
-- [ ] PWM
+- [x] PWM
 - [ ] ADC
 - [ ] UART
 - [ ] SPI
