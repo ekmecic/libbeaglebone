@@ -40,7 +40,7 @@ impl PWM {
   /// use libbeaglebone::pwm::PWM;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   /// ```
   pub fn new(m_pwm_chip_num: u8, m_pwm_num: u8) -> PWM {
     PWM {
@@ -61,7 +61,7 @@ impl PWM {
   /// use libbeaglebone::pwm::PWM;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   ///
   /// // Export the PWM.
   /// pwm.set_export(DeviceState::Exported).unwrap();
@@ -104,12 +104,12 @@ impl PWM {
   /// use libbeaglebone::pwm::PWM;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   ///
   /// // Export the PWM.
   /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
-  /// // Make the period 500,000ns.
+  /// // Make the period 500,000 ns.
   /// pwm.set_period(500_000).unwrap();
   /// ```
   pub fn set_period(&mut self, period_ns: u32) -> Result<()> {
@@ -136,12 +136,12 @@ impl PWM {
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   ///
   /// // Export the PWM.
   /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
-  /// // Make the period 500,000ns.
+  /// // Make the period 500,000 ns.
   /// pwm.set_period(500_000).unwrap();
   ///
   /// // Turn the PWM on
@@ -175,18 +175,18 @@ impl PWM {
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   ///
   /// // Export the PWM.
   /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
-  /// // Make the period 500,000ns.
+  /// // Make the period 500,000 ns.
   /// pwm.set_period(500_000).unwrap();
   ///
   /// // Turn the PWM on.
   /// pwm.set_state(PWMState::Enabled).unwrap();
   ///
-  /// // Set the duty cycle to 50% (250,000ns).
+  /// // Set the duty cycle to 50% (250,000 ns).
   /// pwm.write(50.0).unwrap();
   /// ```
   pub fn write(&mut self, percentage: f32) -> Result<()> {
@@ -215,18 +215,18 @@ impl PWM {
   /// use libbeaglebone::pwm::{PWM, PWMState};
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
-  /// let mut pwm = PWM::new(0,0);
+  /// let mut pwm = PWM::new(0, 0);
   ///
   /// // Export the PWM.
   /// pwm.set_export(DeviceState::Exported).unwrap();
   ///
-  /// // Make the period 500,000ns.
+  /// // Make the period 500,000 ns.
   /// pwm.set_period(500_000).unwrap();
   ///
   /// // Turn the PWM on.
   /// pwm.set_state(PWMState::Enabled).unwrap();
   ///
-  /// // Set the duty cycle to 250,000ns.
+  /// // Set the duty cycle to 250,000 ns.
   /// pwm.set_duty_cycle(250_000).unwrap();
   /// ```
   pub fn set_duty_cycle(&mut self, duty_cycle_ns: u32) -> Result<()> {
