@@ -13,6 +13,7 @@ documentation = "https://docs.rs/libbeaglebone"
 
 [dependencies]
 error-chain = "0.10.0"
+nix = "0.8.1"
 
 [badges]
 travis-ci = {repository = "ekmecic/libbeaglebone"}

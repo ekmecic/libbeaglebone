@@ -1,7 +1,8 @@
 //! A friendly Rust interface to the BeagleBone family of devices.
 
+// TODO: Re-enable missing_docs warning once the following PR is merged:
+// https://github.com/nix-rust/nix/pull/661
 #![deny(bad_style,
-        unsafe_code,
         const_err,
         dead_code,
         extra_requirement_in_impl,
@@ -24,7 +25,6 @@
         unused_parens,
         while_true,
         missing_debug_implementations,
-        missing_docs,
         trivial_casts,
         trivial_numeric_casts,
         unused_extern_crates,
@@ -35,8 +35,8 @@
 // Don't recurse too deeply (with error-chain enabled)
 #![recursion_limit = "1024"]
 
-#[macro_use]
-extern crate error_chain;
+#[macro_use] extern crate error_chain;
+#[macro_use] extern crate nix;
 
 pub mod gpio;
 pub mod enums;
@@ -44,3 +44,4 @@ pub mod errors;
 pub mod pwm;
 pub mod util;
 pub mod adc;
+pub mod i2c;
