@@ -73,6 +73,6 @@ impl ADC {
       .parse::<u32>()
       .chain_err(|| format!("Failed to parse ADC #{} value", &self.adc_num))?;
 
-    Ok(raw_value as f32 * &self.scaling_factor)
+    Ok(raw_value as f32 * self.scaling_factor)
   }
 }
