@@ -37,6 +37,7 @@
 
 #[macro_use] extern crate error_chain;
 #[macro_use] extern crate nix;
+extern crate serialport;
 
 pub mod gpio;
 pub mod enums;
@@ -44,4 +45,5 @@ pub mod errors;
 pub mod pwm;
 pub mod util;
 pub mod adc;
+pub mod uart;
 pub mod i2c;
