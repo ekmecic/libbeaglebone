@@ -41,7 +41,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```
-  /// use libbeaglebone::gpio::GPIO;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new GPIO object using pin #45
   /// let mut pin = GPIO::new(45);
@@ -59,7 +59,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::gpio::{GPIO, PinDirection};
+  /// use libbeaglebone::prelude::*;
   ///
   /// let pin = GPIO::new(45);
   ///
@@ -90,8 +90,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::gpio::{GPIO};
+  /// use libbeaglebone::prelude::*;
   ///
   /// let mut pin = GPIO::new(45);
   ///
@@ -131,8 +130,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::gpio::{GPIO, PinState, PinDirection};
-  /// use libbeaglebone::enums::DeviceState;
+  /// use libbeaglebone::prelude::*;
   ///
   /// let mut pin = GPIO::new(45);
   ///
@@ -167,8 +165,7 @@ impl GPIO {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::gpio::{GPIO, PinDirection, PinState};
+  /// use libbeaglebone::prelude::*;
   ///
   /// let mut pin = GPIO::new(45);
   ///

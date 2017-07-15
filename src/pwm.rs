@@ -37,7 +37,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::pwm::PWM;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
@@ -57,8 +57,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::pwm::PWM;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
@@ -100,8 +99,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::pwm::PWM;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
@@ -132,8 +130,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::pwm::{PWM, PWMState};
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
@@ -171,8 +168,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::pwm::{PWM, PWMState};
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
@@ -211,8 +207,7 @@ impl PWM {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::enums::DeviceState;
-  /// use libbeaglebone::pwm::{PWM, PWMState};
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);

@@ -47,3 +47,19 @@ pub mod util;
 pub mod adc;
 pub mod uart;
 pub mod i2c;
+
+/// Exports types that might be useful to have in scope.
+///
+/// It is intended to be glob imported:
+///
+/// ```
+/// use libbeaglebone::prelude::*;
+/// ```
+pub mod prelude {
+  pub use adc::ADC;
+  pub use enums::DeviceState;
+  pub use gpio::{GPIO, PinDirection, PinState};
+  pub use i2c::I2C;
+  pub use pwm::{PWM, PWMState};
+  pub use uart::UART;
+}

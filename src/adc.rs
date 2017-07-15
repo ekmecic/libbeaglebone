@@ -24,7 +24,7 @@ impl ADC {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::adc::ADC;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new ADC pin using ADC #0 and no scaling factor.
   /// let mut sensor = ADC::new(0, 0.0);
@@ -54,7 +54,7 @@ impl ADC {
   /// # Examples
   ///
   /// ```no_run
-  /// use libbeaglebone::adc::ADC;
+  /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new ADC pin using ADC #6 and a scaling factor of 0.0122.
   /// let mut sensor = ADC::new(6, 0.0122);
