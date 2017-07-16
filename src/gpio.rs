@@ -59,6 +59,11 @@ impl GPIO {
   /// Note: this doesn't do any sort of initialization, you have to call
   /// `set_direction()`, `set_export()`, youself.
   ///
+  /// Furthermore, you will need to configure the selected pin as a GPIO
+  /// prior to use using the `config-pin` utility.
+  /// For example, `config-pin P9.22 GPIO`.
+  /// See the `examples/` directory and module documentation for more help.
+  ///
   /// # Examples
   ///
   /// ```
@@ -69,6 +74,10 @@ impl GPIO {
   /// ```
   pub fn new(m_pin_num: u8) -> GPIO {
     let m_pin_path = format!("/sys/class/gpio/gpio{}", m_pin_num);
+  ///
+  /// # Errors
+  ///
+  /// Fails if the `pin_num` is invalid, i.e. a nonexistent pin.
     GPIO {
       pin_num: m_pin_num,
       pin_path: PathBuf::from(m_pin_path),
@@ -90,6 +99,11 @@ impl GPIO {
   /// // Make the in an input
   /// pin.set_direction(PinDirection::In).unwrap();
   /// ```
+  ///
+  /// # Errors
+  ///
+  /// Fails if the GPIO pin is not configured correctly.
+  /// Check the module documentation to see how to configure the pin correctly.
   pub fn set_direction(&self, direction: PinDirection) -> Result<()> {
     // Write "in" or "out" to the sysfs device file depending on PinDirection
     let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
@@ -121,6 +135,11 @@ impl GPIO {
   /// // Try to unexport the pin
   /// pin.set_export(DeviceState::Unexported).unwrap();
   /// ```
+  ///
+  /// # Errors
+  ///
+  /// Fails to export the pin if it isn't configured correctly.
+  /// Check the module documentation to see how to configure the pin correctly.
   pub fn set_export(&self, state: DeviceState) -> Result<()> {
     // Note: if the pin path exists, the pin is already exported.
     // If the pin path doesn't exist, the pin isn't exported.
@@ -147,7 +166,6 @@ impl GPIO {
 
   /// Writes to the pin, setting it either logic high or low.
   ///
-  ///
   /// # Examples
   ///
   /// ```no_run
@@ -165,6 +183,11 @@ impl GPIO {
   /// // Set the pin to logic low
   /// pin.write(PinState::High).unwrap();
   /// ```
+  ///
+  /// # Errors
+  ///
+  /// Fails to write to the pin if the pin isn't configured correctly.
+  /// Check the module documentation to see how to configure the pin correctly.
   pub fn write(&mut self, state: PinState) -> Result<()> {
     let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
     // Write a "0" or "1" to the pin's "value" device file depending on PinState
@@ -199,6 +222,11 @@ impl GPIO {
   ///   println!("Pin is high!");
   /// }
   /// ```
+  ///
+  /// # Errors
+  ///
+  /// Fails to read from the pin if the pin isn't configured correctly.
+  /// Check the module documentation to see how to configure the pin correctly.
   pub fn read(&self) -> Result<(PinState)> {
     let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
     // Read from the file and match the resulting bool to a PinState
