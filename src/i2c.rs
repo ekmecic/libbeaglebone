@@ -96,10 +96,12 @@ impl I2C {
   ///
   /// Fails if the kernel is unable to set the slave device address to the
   /// chosen value.
-  pub fn set_slave_address(&self, slave_addr: u16) -> Result<(i32)> {
+  pub fn set_slave_address(&self, slave_addr: u16) -> Result<()> {
     unsafe {
-      Ok(ioctl_set_i2c_slave_addr(self.i2c_file.as_raw_fd(), slave_addr as *mut u8)
-           .chain_err(|| format!("Failed to set I2C slave device address to {}.", slave_addr))?)
+      let _ =
+        ioctl_set_i2c_slave_addr(self.i2c_file.as_raw_fd(), slave_addr as *mut u8)
+          .chain_err(|| format!("Failed to set I2C slave device address to {}.", slave_addr))?;
+      Ok(())
     }
   }
 
@@ -123,10 +125,11 @@ impl I2C {
   /// # Errors
   ///
   /// Fails if the kernel is unable to write the chosen value to the device.
-  pub fn write(&self, data: u8) -> Result<(i32)> {
+  pub fn write(&self, data: u8) -> Result<()> {
     unsafe {
-      Ok(self.i2c_call(0 /* 0 => write */, data, 1, ::std::ptr::null_mut())
-             .chain_err(|| format!("Failed to write {} to the I2C device.", data))?)
+      self.i2c_call(0 /* 0 => write */, data, 1, ::std::ptr::null_mut())
+          .chain_err(|| format!("Failed to write {} to the I2C device.", data))?;
+      Ok(())
     }
   }
 
@@ -167,7 +170,7 @@ impl I2C {
                      command: u8, // can be address or something else
                      size: u32,
                      data: *mut i2c_data)
-                     -> Result<(i32)> {
+                     -> Result<()> {
 
     let mut args = i2c_ioctl_data {
       read_write: read_write,
@@ -179,7 +182,8 @@ impl I2C {
     // Transmuting is ugly, but it's needed to remove all of the type information
     // that Rust keeps in the struct.
     let p_args: *mut u8 = mem::transmute(&mut args);
-    Ok(ioctl_i2c_smbus(self.i2c_file.as_raw_fd(), p_args)
-         .chain_err(|| "failed to write to i2c bus")?)
+    let _ = ioctl_i2c_smbus(self.i2c_file.as_raw_fd(), p_args)
+      .chain_err(|| "failed to write to i2c bus")?;
+    Ok(())
   }
 }
