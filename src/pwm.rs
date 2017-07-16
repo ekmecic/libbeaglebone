@@ -57,15 +57,15 @@ impl PWM {
   /// // Create a new PWM device using PWM chip 0 and PWM 0.
   /// let mut pwm = PWM::new(0, 0);
   /// ```
-  pub fn new(m_pwm_chip_num: u8, m_pwm_num: u8) -> PWM {
   ///
   /// # Errors
   ///
   /// Fails if either `pwm_chip_num` or `pwm_num` are invalid, i.e. you're
   /// trying to refer to a nonexistent PWM.
+  pub fn new(pwm_chip_num: u8, pwm_num: u8) -> PWM {
     PWM {
-      pwm_chip_num: m_pwm_chip_num,
-      pwm_num: m_pwm_num,
+      pwm_chip_num: pwm_chip_num,
+      pwm_num: pwm_num,
       period: 0,
       duty_cycle: 0,
       state: PWMState::Disabled,

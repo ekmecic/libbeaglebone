@@ -72,15 +72,15 @@ impl GPIO {
   /// // Create a new GPIO object using pin #45
   /// let mut pin = GPIO::new(45);
   /// ```
-  pub fn new(m_pin_num: u8) -> GPIO {
-    let m_pin_path = format!("/sys/class/gpio/gpio{}", m_pin_num);
   ///
   /// # Errors
   ///
   /// Fails if the `pin_num` is invalid, i.e. a nonexistent pin.
+  pub fn new(pin_num: u8) -> GPIO {
+    let pin_path = format!("/sys/class/gpio/gpio{}", pin_num);
     GPIO {
-      pin_num: m_pin_num,
-      pin_path: PathBuf::from(m_pin_path),
+      pin_num: pin_num,
+      pin_path: PathBuf::from(pin_path),
     }
   }
 
