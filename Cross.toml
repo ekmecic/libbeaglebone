@@ -1,0 +1,4 @@
+[build.env]
+# Needed for libudev to cross-compile properly on ARM systems
+# See this details: https://travis-ci.org/ekmecic/libbeaglebone/jobs/252687768#L595
+passthrough = ["PKG_CONFIG_ALLOW_CROSS"]
