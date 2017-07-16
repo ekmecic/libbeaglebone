@@ -1,4 +1,17 @@
 //! The ADC module.
+//!
+//! The BeagleBone Black has 7 usable ADC inputs.
+//!
+//! These can be enabled by using the bone_capemgr module and enabling a device
+//! tree overlay that allows the use of the ADCs.
+//! One such overlay is the BB-ADC overlay, which can be enabled with the
+//! following command:
+//! `sudo sh -c "echo 'BB-ADC' > /sys/devices/platform/bone_capemgr/slots"`
+//! This command works for recent kernel versions.
+//!
+//! *NOTE:* the ADC inputs on the BeagleBone are limited to 1.8V.
+//! Be careful not to exceed this limit or you may damage the BeagleBone (don't
+//! ask me how I know that!).
 
 use errors::*;
 use util::*;

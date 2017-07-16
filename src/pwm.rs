@@ -1,4 +1,19 @@
 //! The PWM module.
+//!
+//! The BeagleBone Black has 8 PWM outputs.
+//! However, these pins may need to be explicitly configured as PWMs by using
+//! the `config-pin` command.
+//!
+//! As an example, use the following command to set GPIO 29 :
+//! `sudo config-pin P9.29 pwm"`
+//! The above example configure the 29 pin on P9 (the second header), also
+//! known as EHRPWM0B, as a PWM.
+//! This command works for recent kernel versions.
+
+//! If you wish to configure another pin as a PWM, substitute it's identifier
+//! for P9.29.
+//! A convenient list of pin identifiers can be found through an online search
+//! of "BeagleBone pinout".
 
 use enums::DeviceState;
 use errors::*;

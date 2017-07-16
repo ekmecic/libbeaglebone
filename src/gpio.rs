@@ -1,4 +1,25 @@
 //! The GPIO module.
+//!
+//! The BeagleBone Black has 65 GPIO pins, many of which are enabled by the
+//! default device tree overlay.
+//! However, these pins may need to be explicitly configured as GPIOs by using
+//! the `config-pin` command.
+//!
+//! As an example, use the following command to set GPIO 29 :
+//! `sudo config-pin P9.22 gpio"`
+//! The above example configure the 22nd pin on P9 (the second header), also
+//! known as GPIO_2, as a GPIO.
+//! This command works for recent kernel versions.
+
+//! If you wish to configure another pin as a GPIO, substitute it's identifier
+//! for P9.22.
+//! A convenient list of pin identifiers can be found through an online search
+//! of "BeagleBone pinout".
+//!
+//! Note: not all pins are available to be set as GPIOs with the default device
+//! tree overlay, as they are used for other interfaces such as HDMI.
+//! You may need to change the overlay from the default to access these blocked
+//! pins.
 
 use enums::DeviceState;
 use errors::*;
