@@ -1,6 +1,6 @@
 extern crate libbeaglebone;
 
-use libbeaglebone::adc::ADC;
+use libbeaglebone::prelude::*;
 use std::thread;
 use std::time::Duration;
 

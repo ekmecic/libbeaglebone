@@ -1,7 +1,6 @@
 extern crate libbeaglebone;
 
-use libbeaglebone::enums::DeviceState;
-use libbeaglebone::gpio::{GPIO, PinDirection, PinState};
+use libbeaglebone::prelude::*;
 use std::thread;
 use std::time::Duration;
 
