@@ -35,6 +35,7 @@
 // Don't recurse too deeply (with error-chain enabled)
 #![recursion_limit = "1024"]
 
+#[macro_use] extern crate bitflags;
 #[macro_use] extern crate error_chain;
 #[macro_use] extern crate nix;
 extern crate serialport;
@@ -47,6 +48,7 @@ pub mod util;
 pub mod adc;
 pub mod uart;
 pub mod i2c;
+pub mod spi;
 
 /// Exports types that might be useful to have in scope.
 ///

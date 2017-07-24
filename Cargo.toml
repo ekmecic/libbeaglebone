@@ -12,6 +12,7 @@ repository = "https://github.com/ekmecic/libbeaglebone"
 documentation = "https://docs.rs/libbeaglebone"
 
 [dependencies]
+bitflags = "0.9.1"
 error-chain = "0.10.0"
 serialport = "1.0.1"
 nix = "0.8.1"
