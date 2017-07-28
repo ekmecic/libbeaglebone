@@ -17,7 +17,7 @@ libbeaglebone will be feature-complete when the following interfaces are all imp
 Note: `libbeaglebone` is still in development meaning many of the features haven't yet been implemented.
 
 ## Usage
-Simply add `libbeaglebone = "0.2.0"` under `[dependencies]` in your `Cargo.toml` and you're all set.
+Simply add `libbeaglebone = "0.5.0"` under `[dependencies]` in your `Cargo.toml` and you're all set.
 
 ## Examples
 There are example programs available in the `examples/` directory.
