@@ -106,7 +106,7 @@ impl GPIO {
   /// Check the module documentation to see how to configure the pin correctly.
   pub fn set_direction(&self, direction: PinDirection) -> Result<()> {
     // Write "in" or "out" to the sysfs device file depending on PinDirection
-    let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
+    let path = format!("/sys/class/gpio/gpio{}/direction", &self.pin_num);
     write_file(match direction {
                  PinDirection::In => "in",
                  PinDirection::Out => "out",
