@@ -10,11 +10,11 @@ libbeaglebone will be feature-complete when the following interfaces are all imp
 - [x] GPIO
 - [x] PWM
 - [x] ADC
-- [ ] UART
-- [ ] SPI
-- [ ] I2C
+- [x] UART
+- [x] SPI
+- [x] I2C
 
-Note: `libbeaglebone` is still in development meaning many of the features haven't yet been implemented.
+Note: `libbeaglebone` is still in development and is alpha quality software. Don't trust your life (or anyone else's on this code!)
 
 ## Usage
 Simply add `libbeaglebone = "0.5.0"` under `[dependencies]` in your `Cargo.toml` and you're all set.
