@@ -6,7 +6,7 @@ use std::time::Duration;
 
 fn main() {
   // Create a PWM device at using PWM chip #0 and PWM #0, which is P9.22.
-  // Note, `config-pin P9.21 pwm` has to be called prior to execution.
+  // Note, `config-pin P9.22 pwm` has to be called prior to execution.
   // Then, export, set the period, and enable the PWM.
   let mut led = PWM::new(0, 0);
   led.set_export(DeviceState::Exported).unwrap();
