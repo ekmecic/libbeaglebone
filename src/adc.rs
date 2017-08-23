@@ -46,15 +46,19 @@ impl ADC {
   /// sensor.read().unwrap();
   /// ```
   pub fn read(&self) -> Result<u32> {
-    let path = format!("/sys/bus/iio/devices/iio:device0/in_voltage{}_raw",
-                       &self.adc_num);
+    let path = format!(
+      "/sys/bus/iio/devices/iio:device0/in_voltage{}_raw",
+      &self.adc_num
+    );
 
-    Ok(read_file(&path)
-         .chain_err(|| format!("Failed to read from ADC #{}", &self.adc_num))?
-         .trim()
-         .to_string()
-         .parse::<u32>()
-         .chain_err(|| format!("Failed to parse ADC #{} value", &self.adc_num))?)
+    Ok(
+      path.read_file()
+          .chain_err(|| format!("Failed to read from ADC #{}", &self.adc_num))?
+          .trim()
+          .to_string()
+          .parse::<u32>()
+          .chain_err(|| format!("Failed to parse ADC #{} value", &self.adc_num))?,
+    )
   }
 
   /// Reads the raw voltage of the ADC and applies a scaling factor to it.
@@ -76,15 +80,18 @@ impl ADC {
   /// sensor.scaled_read().unwrap();
   /// ```
   pub fn scaled_read(&self) -> Result<f32> {
-    let path = format!("/sys/bus/iio/devices/iio:device0/in_voltage{}_raw",
-                       &self.adc_num);
+    let path = format!(
+      "/sys/bus/iio/devices/iio:device0/in_voltage{}_raw",
+      &self.adc_num
+    );
 
-    let raw_value = read_file(&path)
-      .chain_err(|| format!("Failed to read from ADC #{}", &self.adc_num))?
-      .trim()
-      .to_string()
-      .parse::<u32>()
-      .chain_err(|| format!("Failed to parse ADC #{} value", &self.adc_num))?;
+    let raw_value =
+      path.read_file()
+          .chain_err(|| format!("Failed to read from ADC #{}", &self.adc_num))?
+          .trim()
+          .to_string()
+          .parse::<u32>()
+          .chain_err(|| format!("Failed to parse ADC #{} value", &self.adc_num))?;
 
     Ok(raw_value as f32 * self.scaling_factor)
   }

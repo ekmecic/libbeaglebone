@@ -107,12 +107,13 @@ impl GPIO {
   pub fn set_direction(&self, direction: PinDirection) -> Result<()> {
     // Write "in" or "out" to the sysfs device file depending on PinDirection
     let path = format!("/sys/class/gpio/gpio{}/direction", &self.pin_num);
-    write_file(match direction {
-                 PinDirection::In => "in",
-                 PinDirection::Out => "out",
-               },
-               &path)
-      .chain_err(|| format!("Failed to set GPIO pin #{} direction", &self.pin_num))?;
+    path.write_file(match direction {
+      PinDirection::In => "in",
+      PinDirection::Out => "out",
+    })
+        .chain_err(|| {
+      format!("Failed to set GPIO pin #{} direction", &self.pin_num)
+    })?;
     Ok(())
   }
 
@@ -191,16 +192,17 @@ impl GPIO {
   pub fn write(&mut self, state: PinState) -> Result<()> {
     let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
     // Write a "0" or "1" to the pin's "value" device file depending on PinState
-    write_file(match state {
-                 PinState::High => "1",
-                 PinState::Low => "0",
-               },
-               &path)
-      .chain_err(|| {
-                   format!("Failed to set GPIO pin #{} state to {:?}",
-                           &self.pin_num,
-                           state)
-                 })?;
+    path.write_file(match state {
+      PinState::High => "1",
+      PinState::Low => "0",
+    })
+        .chain_err(|| {
+      format!(
+        "Failed to set GPIO pin #{} state to {:?}",
+        &self.pin_num,
+        state
+      )
+    })?;
     Ok(())
   }
 
@@ -230,7 +232,7 @@ impl GPIO {
   pub fn read(&self) -> Result<(PinState)> {
     let path = format!("/sys/class/gpio/gpio{}/value", &self.pin_num);
     // Read from the file and match the resulting bool to a PinState
-    match read_file(&path).unwrap().trim() {
+    match path.read_file().unwrap().trim() {
       "1" => Ok(PinState::High),
       "0" => Ok(PinState::Low),
       _ => bail!(format!("Invalid value read from file {}", &path)),

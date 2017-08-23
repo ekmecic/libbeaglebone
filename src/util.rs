@@ -5,25 +5,54 @@ use errors::*;
 use std::fs::File;
 use std::io::{Write, Read};
 
-/// Writes data to a sysfs device file.
-pub fn write_file(data: &str, path: &str) -> Result<()> {
-  // Open the file (write-only) and write data to it
-  File::create(&path)
-    .chain_err(|| format!("Failed to open file {} for writing", &path))?
-    .write_all(data.as_bytes())
-    .chain_err(|| format!("Failed to write to file {}", &path))?;
-  Ok(())
+pub trait Writeable {
+  fn write_file(self, data: &str) -> Result<()>;
 }
 
-/// Reads from a sysfs device file.
-pub fn read_file(path: &str) -> Result<String> {
-  let mut value_str = String::new();
+pub trait Readable {
+  fn read_file(self) -> Result<String>;
+}
 
-  // Open the file (read-only) and read it's contents into the string
-  let _ = File::open(path)
-    .chain_err(|| format!("Failed to open file {} for reading", &path))?
-    .read_to_string(&mut value_str)
-    .chain_err(|| format!("Failed to read from file {}", &path))?;
+impl<'a> Writeable for &'a str {
+  /// Writes data to a sysfs device file.
+  fn write_file(self, data: &str) -> Result<()> {
+    // Open the file (write-only) and write data to it
+    File::create(self)
+      .chain_err(|| format!("Failed to open file {} for writing", self))?
+      .write_all(data.as_bytes())
+      .chain_err(|| format!("Failed to write to file {}", self))?;
+    Ok(())
+  }
+}
 
-  Ok(value_str)
+impl Writeable for File {
+  /// Writes data to a sysfs device file.
+  fn write_file(mut self, data: &str) -> Result<()> {
+    let _ = self.write_all(data.as_bytes());
+    Ok(())
+  }
+}
+
+impl<'a> Readable for &'a str {
+  /// Reads from a sysfs device file.
+  fn read_file(self) -> Result<String> {
+    let mut value_str = String::new();
+
+    // Open the file (read-only) and read it's contents into the string
+    let _ = File::open(self)
+      .chain_err(|| format!("Failed to open file {} for reading", self))?
+      .read_to_string(&mut value_str)
+      .chain_err(|| format!("Failed to read from file {}", self))?;
+
+    Ok(value_str)
+  }
+}
+
+impl Readable for File {
+  /// Reads from a sysfs device file.
+  fn read_file(mut self) -> Result<String> {
+    let mut value_str = String::new();
+    let _ = self.read_to_string(&mut value_str);
+    Ok(value_str)
+  }
 }
