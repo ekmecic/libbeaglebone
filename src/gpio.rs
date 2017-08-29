@@ -23,6 +23,7 @@
 
 use enums::DeviceState;
 use errors::*;
+use pins::Pin;
 use std::fs::File;
 use std::io::Write;
 use std::path::PathBuf;
@@ -70,17 +71,16 @@ impl GPIO {
   /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new GPIO object using pin #45
-  /// let mut pin = GPIO::new(45);
+  /// let pin = GPIO::new(GPIO_P8_11);
   /// ```
   ///
   /// # Errors
   ///
   /// Fails if the `pin_num` is invalid, i.e. a nonexistent pin.
-  pub fn new(pin_num: u8) -> GPIO {
-    let pin_path = format!("/sys/class/gpio/gpio{}", pin_num);
+  pub fn new(pin: Pin) -> GPIO {
     GPIO {
-      pin_num: pin_num,
-      pin_path: PathBuf::from(pin_path),
+      pin_num: pin as u8,
+      pin_path: PathBuf::from(format!("/sys/class/gpio/gpio{}", pin as u8)),
     }
   }
 
@@ -91,7 +91,7 @@ impl GPIO {
   /// ```no_run
   /// use libbeaglebone::prelude::*;
   ///
-  /// let pin = GPIO::new(45);
+  /// let pin = GPIO::new(GPIO_P8_11);
   ///
   /// // Make the pin an output
   /// pin.set_direction(PinDirection::Out).unwrap();
@@ -128,7 +128,7 @@ impl GPIO {
   /// ```no_run
   /// use libbeaglebone::prelude::*;
   ///
-  /// let mut pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(GPIO_P8_11);
   ///
   /// // Try to export the pin
   /// pin.set_export(DeviceState::Exported).unwrap();
@@ -172,7 +172,7 @@ impl GPIO {
   /// ```no_run
   /// use libbeaglebone::prelude::*;
   ///
-  /// let mut pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(GPIO_P8_11);
   ///
   /// // Try to export the pin and make it an output
   /// pin.set_export(DeviceState::Exported).unwrap();
@@ -213,7 +213,7 @@ impl GPIO {
   /// ```no_run
   /// use libbeaglebone::prelude::*;
   ///
-  /// let mut pin = GPIO::new(45);
+  /// let mut pin = GPIO::new(GPIO_P8_11);
   ///
   /// // Try to export the pin and make it an input
   /// pin.set_export(DeviceState::Exported).unwrap();

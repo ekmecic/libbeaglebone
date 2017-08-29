@@ -14,21 +14,22 @@
 //! ask me how I know that!).
 
 use errors::*;
+use pins::Pin;
 use util::*;
 
 /// Represents a pin configured as an ADC.
 #[derive(Debug)]
 pub struct ADC {
-  adc_num: u8,
+  adc_num: u16,
   scaling_factor: f32,
 }
 
 impl ADC {
   /// Creates a new ADC object.
-  pub fn new(m_adc_num: u8, m_scaling_factor: f32) -> ADC {
+  pub fn new(pin: Pin, scaling_factor: f32) -> ADC {
     ADC {
-      adc_num: m_adc_num,
-      scaling_factor: m_scaling_factor,
+      adc_num: (pin as u16) - 1000,
+      scaling_factor: scaling_factor,
     }
   }
 
@@ -40,7 +41,7 @@ impl ADC {
   /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new ADC pin using ADC #0 and no scaling factor.
-  /// let mut sensor = ADC::new(0, 0.0);
+  /// let mut sensor = ADC::new(AIN_0, 0.0);
   ///
   /// // Read the ADC value.
   /// sensor.read().unwrap();
@@ -74,7 +75,7 @@ impl ADC {
   /// use libbeaglebone::prelude::*;
   ///
   /// // Create a new ADC pin using ADC #6 and a scaling factor of 0.0122.
-  /// let mut sensor = ADC::new(6, 0.0122);
+  /// let mut sensor = ADC::new(AIN_6, 0.0122);
   ///
   /// // Read the ADC value and scale it to degrees Celsius.
   /// sensor.scaled_read().unwrap();

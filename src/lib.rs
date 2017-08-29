@@ -49,6 +49,7 @@ pub mod adc;
 pub mod uart;
 pub mod i2c;
 pub mod spi;
+pub mod pins;
 
 /// Exports types that might be useful to have in scope.
 ///
@@ -64,4 +65,5 @@ pub mod prelude {
   pub use i2c::I2C;
   pub use pwm::{PWM, PWMState};
   pub use uart::UART;
+  pub use pins::Pin::*;
 }

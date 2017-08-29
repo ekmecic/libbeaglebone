@@ -8,7 +8,7 @@ fn main() {
   // Create a GPIO object at pin #69 that'll represent the LED, export it, and
   // set it as an output
   // Adjust the pin number to whatever pin your LED is connected to
-  let mut led = GPIO::new(69);
+  let mut led = GPIO::new(GPIO_P8_9);
   led.set_export(DeviceState::Exported).unwrap();
   led.set_direction(PinDirection::Out).unwrap();
 

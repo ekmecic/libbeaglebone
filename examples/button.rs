@@ -6,7 +6,7 @@ fn main() {
   // Create a GPIO object at pin #66 that'll represent the button, export it,
   // and set it as an input
   // Adjust the pin number to whatever pin your LED is connected to
-  let button = GPIO::new(66);
+  let button = GPIO::new(GPIO_P8_7);
   button.set_export(DeviceState::Exported).unwrap();
   button.set_direction(PinDirection::In).unwrap();
   println!("Waiting for button press...");
