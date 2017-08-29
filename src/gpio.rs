@@ -58,7 +58,7 @@ impl GPIO {
   /// Creates a new GPIO pin object.
   ///
   /// Note: this doesn't do any sort of initialization, you have to call
-  /// `set_direction()`, `set_export()`, youself.
+  /// `set_direction()`, `set_export()`, yourself.
   ///
   /// Furthermore, you will need to configure the selected pin as a GPIO
   /// prior to use using the `config-pin` utility.
